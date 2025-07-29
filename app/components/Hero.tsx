@@ -1,6 +1,8 @@
-import React from 'react'
+type HeroProps = {
+  name?: string,
+}
 
-function Hero({ name = "[NAME]" }) {
+function Hero({ name = "[NAME]" }: HeroProps) {
   return (
     <header className="text-center py-20 px-4 bg-gray-900 text-white transition-colors duration-300">
       <h2 className="text-4xl font-bold mb-4">
