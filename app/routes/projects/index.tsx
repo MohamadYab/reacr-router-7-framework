@@ -2,6 +2,7 @@ import { useState } from "react";
 import ProjectCard from "~/components/ProjectCard";
 import type { Route } from "./+types/index";
 import type { Project } from '~/types';
+import Pagination from "~/components/Pagination";
 
 export async function loader({ request }: Route.LoaderArgs): Promise<{ projects: Project[] }> {
   const response = await fetch("http://localhost:5000/projects");
@@ -22,22 +23,6 @@ function ProjectsPage({ loaderData }: Route.ComponentProps) {
 
   const currentProjects = projects.slice(indexOfFirst, indexOfLast);
 
-  const renderPagination = () => (
-    <div className="flex justify-center gap-2 mt-8">
-      {Array.from({length: totalPages}, (_, index) => (
-        <button
-          key={index + 1}
-          className={`px-3 py-1 cursor-pointer rounded ${
-            currentPage === index + 1 ? "bg-blue-600 text-white" : "bg-gray-700 text-gray-200"
-          }`}
-          onClick={() => setCurrentPage(index + 1)}
-        >
-          {index + 1}
-        </button>
-      ))}
-    </div>
-  );
-
   return (
     <>
       <h2 className='text-3xl font-bold text-white mb-8'>My Projects</h2>
@@ -46,7 +31,11 @@ function ProjectsPage({ loaderData }: Route.ComponentProps) {
           <ProjectCard key={project.id} project={project} />
         ))}
       </div>
-      { totalPages > 1 && renderPagination()}
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        onPageChange={setCurrentPage}
+      />
     </>
   )
 }
