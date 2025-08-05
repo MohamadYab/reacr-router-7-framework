@@ -54,7 +54,7 @@ function BlogPostDetailsPage({ loaderData }: BlogPostDetailsPageProps) {
       </div>
 
       <Link
-        to="/blogs"
+        to="/blog"
         className="cursor-pointer text-blue-300 text-sm hover:underline"
       >
         Back to Posts
